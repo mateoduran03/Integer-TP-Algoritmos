@@ -34,7 +34,33 @@ usuarioDePublicacion (u, _, _) = u
 likesDePublicacion :: Publicacion -> [Usuario]
 likesDePublicacion (_, _, us) = us
 
--- Ejercicios
+--PREDICADOS AUXILIARES
+pertenece :: Integer -> [Integer] -> Bool
+pertenece n [] = False
+pertenece n (x:xs) |n == x = True 
+                   |otherwise = pertenece n xs
+
+perteneceUSU :: Usuario -> [Usuario] -> Bool
+perteneceUSU n [] = False
+perteneceUSU n (x:xs) |n == x = True 
+                      |otherwise = perteneceUSU n xs
+
+mismosElementos :: [Integer]->[Integer]->[Integer]
+mismosElementos [] (y:ys) = []
+mismosElementos (x:xs) (y:ys)|pertenece x (y:ys) = x : mismosElementos xs (y:ys)
+                             |otherwise =  mismosElementos xs (y:ys)
+                             
+sinRepetidos :: [Integer] -> [Integer]
+sinRepetidos [] = []
+sinRepetidos (x:xs)|pertenece x xs = sinRepetidos xs
+                   |otherwise = x : sinRepetidos xs
+
+noHayIdsRepetidos :: [Usuario]->[Usuario]
+noHayIdsRepetidos [] = []
+noHayIdsRepetidos (x:xs)|perteneceUSU x xs = noHayIdsRepetidos xs
+                        |otherwise = x : noHayIdsRepetidos xs
+
+-- EJERCICIOS
 
 nombresDeUsuarios :: RedSocial -> [String]
 nombresDeUsuarios = undefined
