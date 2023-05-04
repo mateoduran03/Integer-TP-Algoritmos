@@ -91,7 +91,19 @@ relacionesAsimetricasaux:: Relacion -> Relacion
 relacionesAsimetricasaux (x , y) = (y , x) 
 
 usuarioValido :: Usuario -> Bool
-usuarioValido  
+usuarioValido n | idDeUsuario n > 0 && espalabra n  = True
+                | otherwise = False 
+
+espalabra :: Usuario -> Bool
+espalabra n | longitud (nombreDeUsuario n) > 0 && ((head (nombreDeUsuario n) /= ' ')) = True
+            | otherwise = False
+
+--Consultar caso base profesores.
+usuariosValidos :: [Usuario] -> Bool 
+usuariosValidos [] = True 
+usuariosValidos (x:xs) | usuarioValido x && noHayIdsRepetidos (x:xs) = usuariosValidos xs
+                       | otherwise = False 
+                        
 
 
 -- EJERCICIOS 
