@@ -76,11 +76,19 @@ noHayIdsRepetidos :: [Usuario] -> Bool
 noHayIdsRepetidos (x:xs) | longitud (x:xs) <= 1 = True
                          | pertenece (idDeUsuario x) (tomarIds xs) = False  
                          | otherwise = noHayIdsRepetidos xs 
-
+                                            
 --Toma la lista de todos los ids de una lista de usuarios
 tomarIds :: [Usuario] -> [Integer]
 tomarIds [] = []
 tomarIds (x:xs) = idDeUsuario x : nohayrepeAux xs                        
+
+relacionesAsimetricas :: [Relacion] -> Bool
+relacionesAsimetricas (x:xs) | longitud (x:xs) == 1 = True
+                             | pertenece (relacionesAsimetricasaux x) xs == True = False
+                             | otherwise =  relacionesAsimetricas xs 
+             
+relacionesAsimetricasaux:: Relacion -> Relacion
+relacionesAsimetricasaux (x , y) = (y , x) 
 
 usuarioValido :: Usuario -> Bool
 usuarioValido  
