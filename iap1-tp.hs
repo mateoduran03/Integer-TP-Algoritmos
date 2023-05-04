@@ -103,7 +103,18 @@ usuariosValidos :: [Usuario] -> Bool
 usuariosValidos [] = True 
 usuariosValidos (x:xs) | usuarioValido x && noHayIdsRepetidos (x:xs) = usuariosValidos xs
                        | otherwise = False 
-                        
+
+noHayRelacionesRepetidas :: [Relacion] -> Bool
+noHayRelacionesRepetidas x = noHayRelacionesRepetidas2 x x
+
+noHayRelacionesRepetidas2 :: [Relacion] -> [Relacion] -> Bool   
+noHayRelacionesRepetidas2 (x:xs) y | longitud (x:xs) == 1 = True
+                                   | noHayRelacionesRepetidasaux x y == False = False
+                                   | otherwise = noHayRelacionesRepetidas2 xs y
+
+noHayRelacionesRepetidasaux :: Relacion -> [Relacion] -> Bool
+noHayRelacionesRepetidasaux x (y:ys) | pertenece x ys == True = False
+                                     | otherwise = True
 
 
 -- EJERCICIOS 
