@@ -42,10 +42,26 @@ pertenece n [] = False
 pertenece n (x:xs) |n == x = True 
                    |otherwise = pertenece n xs
 
-mismosElementos :: Eq t => [t] -> [t] -> Bool
-mismosElementos (x:xs) (y:ys) | longitud (x:xs) == 0 = True
-                              | pertenece x (y:ys) == True = mismosElementos xs (y:ys)
-                              | otherwise = False
+mismosElementos :: (Eq t) => [t] -> [t] -> Bool
+mismosElementos [] [] = True
+mismosElementos []  _ = False
+mismosElementos _ []  = False
+mismosElementos (x:xs) ys = pertenece x ys && mismosElementos xs (quitartodos x ys)
+
+quitartodos :: (Eq t) => t -> [t] -> [t]
+quitartodos x xs | not (pertenece x xs) = xs
+                 | pertenece x xs && not (hayRepetidos xs) = quitar x xs
+                 | otherwise = quitartodos x (quitar x xs)
+
+quitar :: (Eq t) => t -> [t] -> [t]
+quitar x xs | not (pertenece x xs) = xs
+            | pertenece x xs && x == head xs = tail xs
+            | otherwise = [head xs] ++ quitar x (tail xs)
+
+hayRepetidos :: (Eq t) => [t] -> Bool
+hayRepetidos ls     | longitud ls <= 1 = False
+hayRepetidos (x:xs) | pertenece x xs = True
+                    | otherwise= hayRepetidos (head xs:tail xs)
 
 longitud :: [t] -> Integer
 longitud [] = 0
@@ -57,9 +73,17 @@ sinRepetidos (x:xs) y | longitud (x:xs) == 0 = True
                       | otherwise = sinRepetidos xs y
 
 noHayIdsRepetidos :: [Usuario] -> Bool
-noHayIdsRepetidos (x:xs) | longitud (x:xs) == 0 = True
-                         | pertenece (idDeUsuario x) ([idDeUsuario xs]) == True = False
-                         | otherwise = noHayIdsRepetidos xs
+noHayIdsRepetidos (x:xs) | longitud (x:xs) <= 1 = True
+                         | pertenece (idDeUsuario x) (tomarIds xs) = False  
+                         | otherwise = noHayIdsRepetidos xs 
+
+--Toma la lista de todos los ids de una lista de usuarios
+tomarIds :: [Usuario] -> [Integer]
+tomarIds [] = []
+tomarIds (x:xs) = idDeUsuario x : nohayrepeAux xs                        
+
+usuarioValido :: Usuario -> Bool
+usuarioValido  
 
 
 -- EJERCICIOS 
