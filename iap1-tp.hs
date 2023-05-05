@@ -115,7 +115,11 @@ noHayRelacionesRepetidas2 (x:xs) y | longitud (x:xs) == 1 = True
 noHayRelacionesRepetidasaux :: Relacion -> [Relacion] -> Bool
 noHayRelacionesRepetidasaux x (y:ys) | pertenece x ys == True = False
                                      | otherwise = True
-
+                                     
+sonDeLaRed :: RedSocial -> [Usuario] -> Bool
+sonDeLaRed n [] = True
+sonDeLaRed n (x:xs) | pertenece x (usuarios n) = sonDeLaRed n xs
+                    | otherwise = False 
 
 -- EJERCICIOS 
 
