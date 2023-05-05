@@ -121,6 +121,9 @@ sonDeLaRed n [] = True
 sonDeLaRed n (x:xs) | pertenece x (usuarios n) = sonDeLaRed n xs
                     | otherwise = False 
 
+relacionadosDirecto :: Usuario -> Usuario -> RedSocial -> Bool
+relacionadosDirecto u1 u2 r| pertenece (u1,u2) (relaciones r) = True
+                           | otherwise = False
 -- EJERCICIOS 
 
 
