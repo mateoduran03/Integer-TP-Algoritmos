@@ -80,7 +80,7 @@ noHayIdsRepetidos (x:xs) | longitud (x:xs) <= 1 = True
 --Toma la lista de todos los ids de una lista de usuarios
 tomarIds :: [Usuario] -> [Integer]
 tomarIds [] = []
-tomarIds (x:xs) = idDeUsuario x : nohayrepeAux xs                        
+tomarIds (x:xs) = idDeUsuario x : tomarIds xs                        
 
 relacionesAsimetricas :: [Relacion] -> Bool
 relacionesAsimetricas (x:xs) | longitud (x:xs) == 1 = True
