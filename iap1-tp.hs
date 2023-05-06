@@ -123,6 +123,7 @@ sonDeLaRed n (x:xs) | pertenece x (usuarios n) = sonDeLaRed n xs
 
 relacionadosDirecto :: Usuario -> Usuario -> RedSocial -> Bool
 relacionadosDirecto u1 u2 r| pertenece (u1,u2) (relaciones r) = True
+                           |pertenece (u2,u1) (relaciones r) = True
                            | otherwise = False
 -- EJERCICIOS 
 
