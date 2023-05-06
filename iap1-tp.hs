@@ -191,9 +191,16 @@ estaRobertoCarlosaux r (x:xs) | longitud xs == 0 = False
                               | cantidadDeAmigos r x > 1000000 = True
                               | otherwise = estaRobertoCarlosaux r xs
 
--- describir qué hace la función: .....
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
-publicacionesDe = undefined
+publicacionesDe r x = publicacionesDeaux (publicaciones r) x 
+
+-- describir qué hace la función: dado un usuario devuelve una lista de sus publicaciones
+publicacionesDeaux :: [Publicacion] -> Usuario -> [Publicacion] -- (falta testear)
+publicacionesDeaux (x:xs) y | (longitud xs == 0) && (y == (usuarioDePublicacion x)) = [x]
+                            | (longitud xs == 0) && (y /= (usuarioDePublicacion x)) = []
+                            | y == (usuarioDePublicacion x) = [x] ++ publicacionesDeaux xs y
+                            | otherwise = publicacionesDeaux xs y
+
 
 -- describir qué hace la función: .....
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
