@@ -167,9 +167,10 @@ eliminarrepetidos [] = []
 eliminarrepetidos (x:xs) | pertenece x xs == True = x : quitartodos x xs
                          | otherwise = x : eliminarrepetidos xs 
 
--- describir qué hace la función: .....
-cantidadDeAmigos :: RedSocial -> Usuario -> Int
-cantidadDeAmigos = undefined
+-- describir qué hace la función: dado un usuario perteneciente a la red social, devuelve la cantidad de amigos que tiene
+cantidadDeAmigos :: RedSocial -> Usuario -> Integer
+cantidadDeAmigos x y = longitud (amigosDe x y)
+
 
 -- describir qué hace la función: .....
 usuarioConMasAmigos :: RedSocial -> Usuario
