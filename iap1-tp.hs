@@ -132,7 +132,16 @@ cadenaDeAmigos [] r = False
 cadenaDeAmigos (x:xs) r| relacionadosDirecto x (head xs) r = True
                        | otherwise = cadenaDeAmigos xs r   
 -- EJERCICIOS 
+-- describir que hace la funcion: la funcion me devuelve una secuencia de los nombres de los usuarios en la red social
+nombreDeUsuarios :: RedSocial -> [[Char]]
+nombreDeUsuarios x = proyectarNombres (usuarios x)
 
+proyectarNombres :: [Usuario] -> [[Char]] -- dada una secuencia de usuarios me devuelve una secuencia de sus nombres
+proyectarNombres (x:xs) = proyectarNombresaux xs [[nombreDeUsuario x]]
+
+proyectarNombresaux :: [Usuario] -> [[Char]] -> [[Char]]                     
+proyectarNombresaux (x:xs) y | longitud (x:xs) == 1 =  [[nombreDeUsuario x]]
+                             | otherwise = y ++ proyectarNombresaux xs [[nombreDeUsuario x]]
 
 
 
