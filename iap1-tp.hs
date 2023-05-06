@@ -134,16 +134,12 @@ cadenaDeAmigos (x:xs) r| relacionadosDirecto x (head xs) r = True
                        
 -- EJERCICIOS 
 -- describir que hace la funcion: la funcion me devuelve una secuencia de los nombres de los usuarios en la red social
-nombreDeUsuarios :: RedSocial -> [[Char]] -- (falta testear)
+nombreDeUsuarios :: RedSocial -> [[Char]] 
 nombreDeUsuarios x = proyectarNombres (usuarios x)
 
 proyectarNombres :: [Usuario] -> [[Char]] -- dada una secuencia de usuarios me devuelve una secuencia de sus nombres
-proyectarNombres (x:xs) = proyectarNombresaux xs [[nombreDeUsuario x]]
-
-proyectarNombresaux :: [Usuario] -> [[Char]] -> [[Char]]                     
-proyectarNombresaux (x:xs) y | longitud (x:xs) == 1 =  [[nombreDeUsuario x]]
-                             | otherwise = y ++ proyectarNombresaux xs [[nombreDeUsuario x]]
-
+proyectarNombres [] = []
+proyectarNombres (x:xs) = nombreDeUsuario x : proyectarNombres xs
 
 -- describir qué hace la función: dado un usuario devuelve una lista de usuarios relacionados con el
 -- idea: dada red, devolver relaciones de red y en cada relacion que contenga al usuario, entraer al usuario2, luego a la lista final le quito repetidos
