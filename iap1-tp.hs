@@ -172,13 +172,28 @@ cantidadDeAmigos :: RedSocial -> Usuario -> Integer
 cantidadDeAmigos x y = longitud (amigosDe x y)
 
 
--- describir qué hace la función: .....
-usuarioConMasAmigos :: RedSocial -> Usuario
-usuarioConMasAmigos = undefined
+-- describir qué hace la función: dada una redsocial, devuelve el usuario con mas amigos
+-- idea: comparo la cantidad de amigos de cada usuario hasta quedarme con el mayor
+usuarioConMasAmigos :: RedSocial -> Usuario -- (falta testear)
+usuarioConMasAmigos r = usuarioConMasAmigosaux r (usuarios r) (primerusuario r)
 
--- describir qué hace la función: .....
-estaRobertoCarlos :: RedSocial -> Bool
-estaRobertoCarlos = undefined
+primerusuario :: RedSocial -> Usuario
+primerusuario x = head (usuarios x)
+
+usuarioConMasAmigosaux :: RedSocial -> [Usuario] -> Usuario -> Usuario
+usuarioConMasAmigosaux r (x:xs) y | longitud xs == 0 = y
+                                  | (cantidadDeAmigos r x) > (cantidadDeAmigos r y) = usuarioConMasAmigosaux r xs x
+                                  | otherwise = usuarioConMasAmigosaux r xs y
+                                  
+
+-- describir qué hace la función: si existe un usuario con mas de 1000000 de amigos devuelve true
+estaRobertoCarlos :: RedSocial -> Bool -- (falta testear)
+estaRobertoCarlos x = estaRobertoCarlosaux x (usuarios x)
+
+estaRobertoCarlosaux :: RedSocial -> [Usuario] -> Bool
+estaRobertoCarlosaux r (x:xs) | longitud xs == 0 = False
+                              | cantidadDeAmigos r x > 1000000 = True
+                              | otherwise = estaRobertoCarlosaux r xs
 
 -- describir qué hace la función: .....
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
