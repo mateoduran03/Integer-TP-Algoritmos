@@ -125,6 +125,12 @@ relacionadosDirecto :: Usuario -> Usuario -> RedSocial -> Bool
 relacionadosDirecto u1 u2 r| pertenece (u1,u2) (relaciones r) = True
                            |pertenece (u2,u1) (relaciones r) = True
                            | otherwise = False
+                  
+--cadenaDeAmigos LE FALTAN AJUSTES no funciona del todo aun 
+cadenaDeAmigos :: [Usuario] -> RedSocial -> Bool
+cadenaDeAmigos [] r = False
+cadenaDeAmigos (x:xs) r| relacionadosDirecto x (head xs) r = True
+                       | otherwise = cadenaDeAmigos xs r   
 -- EJERCICIOS 
 
 
