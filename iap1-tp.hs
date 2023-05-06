@@ -134,7 +134,7 @@ cadenaDeAmigos (x:xs) r| relacionadosDirecto x (head xs) r = True
                        
 -- EJERCICIOS 
 -- describir que hace la funcion: la funcion me devuelve una secuencia de los nombres de los usuarios en la red social
---RECORDAR: FALTAN LOS REQUISITOS
+
 nombreDeUsuarios :: RedSocial -> [[Char]] 
 nombreDeUsuarios x = proyectarNombres (usuarios x)
 
