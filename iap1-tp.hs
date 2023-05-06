@@ -131,9 +131,10 @@ cadenaDeAmigos :: [Usuario] -> RedSocial -> Bool
 cadenaDeAmigos [] r = False
 cadenaDeAmigos (x:xs) r| relacionadosDirecto x (head xs) r = True
                        | otherwise = cadenaDeAmigos xs r   
+                       
 -- EJERCICIOS 
 -- describir que hace la funcion: la funcion me devuelve una secuencia de los nombres de los usuarios en la red social
-nombreDeUsuarios :: RedSocial -> [[Char]]
+nombreDeUsuarios :: RedSocial -> [[Char]] -- (falta testear)
 nombreDeUsuarios x = proyectarNombres (usuarios x)
 
 proyectarNombres :: [Usuario] -> [[Char]] -- dada una secuencia de usuarios me devuelve una secuencia de sus nombres
@@ -144,10 +145,27 @@ proyectarNombresaux (x:xs) y | longitud (x:xs) == 1 =  [[nombreDeUsuario x]]
                              | otherwise = y ++ proyectarNombresaux xs [[nombreDeUsuario x]]
 
 
+-- describir qué hace la función: dado un usuario devuelve una lista de usuarios relacionados con el
+-- idea: dada red, devolver relaciones de red y en cada relacion que contenga al usuario, entraer al usuario2, luego a la lista final le quito repetidos
+amigosDe :: RedSocial -> Usuario -> [Usuario] -- (falta testear)
+amigosDe x y = eliminarrepetidos (amigosDe2 (relaciones x) y)
 
--- describir qué hace la función: .....
-amigosDe :: RedSocial -> Usuario -> [Usuario]
-amigosDe = undefined
+amigosDe2 :: [Relacion] -> Usuario -> [Usuario]
+amigosDe2 (x:xs) y | longitud (x:xs) == 1 = [amigosDeaux x y]
+                   | pertenece y (relAusuarios x) == True = [amigosDeaux x y] ++ amigosDe2 xs y
+                   | otherwise = amigosDe2 xs y
+
+relAusuarios :: Relacion -> [Usuario]
+relAusuarios (a, b) = [a, b]
+
+amigosDeaux :: Relacion -> Usuario -> Usuario
+amigosDeaux (a, b) y | a == y = b
+                     | b == y = a
+                     
+eliminarrepetidos :: (Eq t) => [t] -> [t]
+eliminarrepetidos [] = []
+eliminarrepetidos (x:xs) | pertenece x xs == True = x : quitartodos x xs
+                         | otherwise = x : eliminarrepetidos xs 
 
 -- describir qué hace la función: .....
 cantidadDeAmigos :: RedSocial -> Usuario -> Int
