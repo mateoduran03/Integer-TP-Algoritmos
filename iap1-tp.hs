@@ -184,12 +184,12 @@ usuarioConMasAmigosaux r (x:xs) y | longitud xs == 0 = y
                                   
 
 -- describir qué hace la función: si existe un usuario con mas de 1000000 de amigos devuelve true
-estaRobertoCarlos :: RedSocial -> Bool -- (falta testear)
+estaRobertoCarlos :: RedSocial -> Bool 
 estaRobertoCarlos x = estaRobertoCarlosaux x (usuarios x)
 
 estaRobertoCarlosaux :: RedSocial -> [Usuario] -> Bool
-estaRobertoCarlosaux r (x:xs) | longitud xs == 0 = False
-                              | cantidadDeAmigos r x > 1000000 = True
+estaRobertoCarlosaux r [] = False
+estaRobertoCarlosaux r (x:xs) | cantidadDeAmigos r x > 1000000 = True
                               | otherwise = estaRobertoCarlosaux r xs
 
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
