@@ -202,18 +202,34 @@ publicacionesDeaux (x:xs) y | (longitud xs == 0) && (y == (usuarioDePublicacion 
                             | y == (usuarioDePublicacion x) = [x] ++ publicacionesDeaux xs y
                             | otherwise = publicacionesDeaux xs y
 
-
--- describir qué hace la función: .....
+-- describir qué hace la función: Dado un usuario devuelve la lista de publicaciones que le gustan al usuario dado.
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
-publicacionesQueLeGustanA = undefined
+publicacionesQueLeGustanA r u = publicacionesQueLeGustanAaux (publicaciones r) u
 
--- describir qué hace la función: .....
+--([(1,"tom"),(2,"mar"),(3,"Harry")] , [] , [((1,"tom"),"hola",[(2,"mar"),(1,"tom")]), ((1,"tom"), "chau", [(2,"mar"),(1,"tom")])])
+--([(1,"tom"),(2,"mar"),(3,"Harry")] , [] , [((1,"tom"),"hola",[(2,"mar")]), ((1,"Tom"), "chau", [(2,"mar"), (1,"tom")])])
+
+publicacionesQueLeGustanAaux :: [Publicacion] -> Usuario -> [Publicacion]
+publicacionesQueLeGustanAaux [] _ = []
+publicacionesQueLeGustanAaux (x:xs) u | pertenece u (likesDePublicacion x) = x : publicacionesQueLeGustanAaux xs u 
+                                      | otherwise = publicacionesQueLeGustanAaux xs u   
+-- describir qué hace la función: Dados dos usuarios, la funcion se fija si a los dos usuarios les gustan las mismas publicaciones.
 lesGustanLasMismasPublicaciones :: RedSocial -> Usuario -> Usuario -> Bool
-lesGustanLasMismasPublicaciones = undefined
+lesGustanLasMismasPublicaciones r u u2 | mismosElementos (publicacionesQueLeGustanA r u) (publicacionesQueLeGustanA r u2) = True
+                                       | otherwise = False  
+    
 
--- describir qué hace la función: .....
+-- describir qué hace la función: Dado un us
 tieneUnSeguidorFiel :: RedSocial -> Usuario -> Bool
-tieneUnSeguidorFiel = undefined
+tieneUnSeguidorFiel r u = tieneUnSeguidorFielaux (publicacionesDe r u) (likesDePublicacion (head (publicacionesDe r u)))
+
+tieneUnSeguidorFielaux :: [Publicacion] -> [Usuario] -> Bool
+tieneUnSeguidorFielaux [] _ = False
+tieneUnSeguidorFielaux _ [] = False 
+tieneUnSeguidorFielaux (x:xs) (u:us) | longitud xs == 0  && pertenece u (likesDePublicacion x) = True
+                                     | pertenece u (likesDePublicacion x) = tieneUnSeguidorFielaux xs [u] 
+                                     | otherwise = tieneUnSeguidorFielaux (x:xs) us    
+
 
 -- describir qué hace la función: .....
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
