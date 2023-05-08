@@ -158,6 +158,7 @@ relAusuarios (a, b) = [a, b]
 amigosDeaux :: Relacion -> Usuario -> Usuario
 amigosDeaux (a, b) y | a == y = b
                      | b == y = a
+                     | y /= a && y /=b =y
                      
 eliminarrepetidos :: (Eq t) => [t] -> [t]
 eliminarrepetidos [] = []
@@ -177,6 +178,7 @@ usuarioConMasAmigos r = usuarioConMasAmigosaux r (usuarios r) (primerusuario r)
 primerusuario :: RedSocial -> Usuario
 primerusuario x = head (usuarios x)
 
+-- ESTE NO ANDA DEL TODO. ESTA COMPARANDO LOS AMIGOS DE (1,"Tom") con los amigos de (1,"Tom") de nuevo. 
 usuarioConMasAmigosaux :: RedSocial -> [Usuario] -> Usuario -> Usuario
 usuarioConMasAmigosaux r (x:xs) y | longitud xs == 0 = y
                                   | (cantidadDeAmigos r x) > (cantidadDeAmigos r y) = usuarioConMasAmigosaux r xs x
