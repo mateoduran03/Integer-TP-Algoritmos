@@ -144,12 +144,12 @@ proyectarNombres (x:xs) = nombreDeUsuario x : proyectarNombres xs
 
 -- describir qué hace la función: dado un usuario devuelve una lista de usuarios relacionados con el
 -- idea: dada red, devolver relaciones de red y en cada relacion que contenga al usuario, entraer al usuario2, luego a la lista final le quito repetidos
-amigosDe :: RedSocial -> Usuario -> [Usuario] -- (falta testear)
-amigosDe x y = eliminarrepetidos (amigosDe2 (relaciones x) y)
+amigosDe :: RedSocial -> Usuario -> [Usuario] 
+amigosDe r x = eliminarrepetidos (amigosDe2 (relaciones r) x)
 
 amigosDe2 :: [Relacion] -> Usuario -> [Usuario]
-amigosDe2 (x:xs) y | longitud (x:xs) == 1 = [amigosDeaux x y]
-                   | pertenece y (relAusuarios x) == True = [amigosDeaux x y] ++ amigosDe2 xs y
+amigosDe2 [] y = []
+amigosDe2 (x:xs) y | pertenece y (relAusuarios x) == True = [amigosDeaux x y] ++ amigosDe2 xs y
                    | otherwise = amigosDe2 xs y
 
 relAusuarios :: Relacion -> [Usuario]
@@ -158,7 +158,6 @@ relAusuarios (a, b) = [a, b]
 amigosDeaux :: Relacion -> Usuario -> Usuario
 amigosDeaux (a, b) y | a == y = b
                      | b == y = a
-                     | y /= a && y /=b =y
                      
 eliminarrepetidos :: (Eq t) => [t] -> [t]
 eliminarrepetidos [] = []
@@ -169,21 +168,15 @@ eliminarrepetidos (x:xs) | pertenece x xs == True = x : quitartodos x xs
 cantidadDeAmigos :: RedSocial -> Usuario -> Integer
 cantidadDeAmigos x y = longitud (amigosDe x y)
 
-
 -- describir qué hace la función: dada una redsocial, devuelve el usuario con mas amigos
 -- idea: comparo la cantidad de amigos de cada usuario hasta quedarme con el mayor
-usuarioConMasAmigos :: RedSocial -> Usuario -- (falta testear)
+usuarioConMasAmigos :: RedSocial -> Usuario
 usuarioConMasAmigos r = usuarioConMasAmigosaux r (usuarios r) (primerusuario r)
 
-primerusuario :: RedSocial -> Usuario
-primerusuario x = head (usuarios x)
-
--- ESTE NO ANDA DEL TODO. ESTA COMPARANDO LOS AMIGOS DE (1,"Tom") con los amigos de (1,"Tom") de nuevo. 
 usuarioConMasAmigosaux :: RedSocial -> [Usuario] -> Usuario -> Usuario
 usuarioConMasAmigosaux r (x:xs) y | longitud xs == 0 = y
-                                  | (cantidadDeAmigos r x) > (cantidadDeAmigos r y) = usuarioConMasAmigosaux r xs x
-                                  | otherwise = usuarioConMasAmigosaux r xs y
-                                  
+                                  | (cantidadDeAmigos r (head xs)) < (cantidadDeAmigos r y) = usuarioConMasAmigosaux r xs y
+                                  | otherwise = usuarioConMasAmigosaux r xs (head xs)
 
 -- describir qué hace la función: si existe un usuario con mas de 1000000 de amigos devuelve true
 estaRobertoCarlos :: RedSocial -> Bool 
