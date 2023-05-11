@@ -43,7 +43,7 @@ pertenece n (x:xs) |n == x = True
                    |otherwise = pertenece n xs
 
 mismosElementos :: (Eq t) => [t] -> [t] -> Bool
-mismosElementos [] [] = True
+mismosElementos [] [] = Truesuarios con dos nombres d
 mismosElementos []  _ = False
 mismosElementos _ []  = False
 mismosElementos (x:xs) ys = pertenece x ys && mismosElementos xs (quitartodos x ys)
@@ -134,7 +134,7 @@ cadenaDeAmigos (x:xs) r| relacionadosDirecto x (head xs) r = True
                        
 -- EJERCICIOS 
 -- describir que hace la funcion: la funcion me devuelve una secuencia de los nombres de los usuarios en la red social
-
+-- añadir eliminarrepetidos
 nombreDeUsuarios :: RedSocial -> [[Char]] 
 nombreDeUsuarios x = proyectarNombres (usuarios x)
 
