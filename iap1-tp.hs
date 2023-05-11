@@ -173,6 +173,9 @@ cantidadDeAmigos x y = longitud (amigosDe x y)
 usuarioConMasAmigos :: RedSocial -> Usuario
 usuarioConMasAmigos r = usuarioConMasAmigosaux r (usuarios r) (primerusuario r)
 
+primerusuario :: RedSocial -> Usuario
+primerusuario x = head (usuarios x)
+
 usuarioConMasAmigosaux :: RedSocial -> [Usuario] -> Usuario -> Usuario
 usuarioConMasAmigosaux r (x:xs) y | longitud xs == 0 = y
                                   | (cantidadDeAmigos r (head xs)) < (cantidadDeAmigos r y) = usuarioConMasAmigosaux r xs y
