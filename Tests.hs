@@ -7,6 +7,7 @@ run = runtestTT testSuiteEj1
 run2 = runtestTT testSuiteEj2
 run3 = runtestTT testSuiteEj3
 run4 = runtestTT testSuiteEj4
+run5 = runtestTT testSuiteEj5
 
 testSuiteEj1 = test [
     -- cuando la lista de usaurios es vacia - vacio
@@ -40,4 +41,10 @@ testSuiteEj4 = test [
     -- 3 usuarios, uno con mas amigos que el otro, devuelve el que tiene mas
     -- 2 usuarios, uno con mas amigos que el otro, devuelve el que tiene mas
     -- 
+    ]
+testSuiteEj5 = test [
+    -- lista vacìa - false
+    -- 1 usuario - false
+    -- 11 usuarios, un usuario con 10 amigos - false
+    -- 12 usarios, un usuario con 11 amigos  - true
     ]
