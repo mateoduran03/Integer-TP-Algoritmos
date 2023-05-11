@@ -126,7 +126,7 @@ relacionadosDirecto u1 u2 r| pertenece (u1,u2) (relaciones r) = True
                            |pertenece (u2,u1) (relaciones r) = True
                            | otherwise = False
                   
---cadenaDeAmigos LE FALTAN AJUSTES no funciona del todo aun 
+
 cadenaDeAmigos :: [Usuario] -> RedSocial -> Bool
 
 cadenaDeAmigos (x:xs) r| longitud (xs) == 0 = False
