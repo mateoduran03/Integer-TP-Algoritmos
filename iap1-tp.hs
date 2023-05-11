@@ -128,9 +128,10 @@ relacionadosDirecto u1 u2 r| pertenece (u1,u2) (relaciones r) = True
                   
 --cadenaDeAmigos LE FALTAN AJUSTES no funciona del todo aun 
 cadenaDeAmigos :: [Usuario] -> RedSocial -> Bool
-cadenaDeAmigos [] r = False
-cadenaDeAmigos (x:xs) r| relacionadosDirecto x (head xs) r = True
-                       | otherwise = cadenaDeAmigos xs r   
+
+cadenaDeAmigos (x:xs) r| longitud (xs) == 0 = False
+                       | relacionadosDirecto x (head xs) r = True
+                       | otherwise = cadenaDeAmigos xs r      
                        
 -- EJERCICIOS 
 -- describir que hace la funcion: la funcion me devuelve una secuencia de los nombres de los usuarios en la red social
