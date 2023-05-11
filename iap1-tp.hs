@@ -2,8 +2,8 @@
 --
 -- Nombre de Grupo: xx
 -- Integrante 1: Nombre Apellido, email, LU
--- Integrante 2: Nombre Apellido, email, LU
--- Integrante 3: Nombre Apellido, email, LU
+-- Integrante 2: Valentin Aguilar, valentinaguila80@gmail.com , LU
+-- Integrante 3: Jorge Cordido, jorgecordido1@gmail.com , 639/23
 -- Integrante 4: Nombre Apellido, email, LU
 
 type Usuario = (Integer, String) -- (id, nombre)
