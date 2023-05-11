@@ -187,7 +187,7 @@ estaRobertoCarlos x = estaRobertoCarlosaux x (usuarios x)
 
 estaRobertoCarlosaux :: RedSocial -> [Usuario] -> Bool
 estaRobertoCarlosaux r [] = False
-estaRobertoCarlosaux r (x:xs) | cantidadDeAmigos r x > 1000000 = True
+estaRobertoCarlosaux r (x:xs) | cantidadDeAmigos r x > 10 = True
                               | otherwise = estaRobertoCarlosaux r xs
 
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
