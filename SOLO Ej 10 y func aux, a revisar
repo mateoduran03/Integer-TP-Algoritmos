@@ -93,6 +93,7 @@ quitar x xs | not (pertenece x xs) = xs
 -- describir qué hace la función: .....
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
 existeSecuenciaDeAmigos r u u2 | pertenece u2 (amigosDe r u) = True 
+                               | not (pertenece u2 (amigosDe r u)) = False
 existeSecuenciaDeAmigos r u u2 =  existeSecuenciaDeAmigosAux r  (amigosDe r u) u2 || existeSecuenciaDeAmigos r (head (amigosDe r u)) u2 
 
 
@@ -102,4 +103,4 @@ existeSecuenciaDeAmigosAux ls (x:xs) u2 | pertenece u2 (x:xs)= True
                                         | pertenece u2 (amigosDe ls x) = True
                                         | otherwise = existeSecuenciaDeAmigosAux ls xs u2 
 
---existeSecuenciaDeAmigos ([(3,"River"),(1,"Central"),(2,"Talleres")],[((1,"Central"),(2,"River")),((3,"River"),((3,"River"), (2,"Talleres")],[]]  caso base random, no le den bola
+--existeSecuenciaDeAmigos ([(3,"River"),(1,"Central")],[((1,"Central"),(2,"River")),((2,"River"),(1,"Central"))],[]]  
