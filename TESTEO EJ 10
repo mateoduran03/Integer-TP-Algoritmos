@@ -58,3 +58,28 @@ usuariosB = [usuario1, usuario2, usuario3, usuario5]
 relacionesB = [relacion1_2, relacion2_3]
 publicacionesB = [publicacion1_3, publicacion1_4, publicacion1_5, publicacion3_1, publicacion3_2, publicacion3_3]
 redB = (usuariosB, relacionesB, publicacionesB)
+
+restarListas :: [Usuario] -> [Usuario] -> [Usuario]
+restarListas [] ys  = ys   
+restarListas (x:xs) ys= restarListas xs (quitartodos x ys)
+
+acumuladora :: Usuario -> [Usuario] -> [Usuario]
+acumuladora x ys = x : ys
+
+
+-- describir qué hace la función: 
+existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
+existeSecuenciaDeAmigos r u u2 = existeSecuenciaDeAmigos2 r u u2 (amigosDe r u) 
+
+existeSecuenciaDeAmigos1 :: RedSocial -> Usuario -> Usuario -> [Usuario] -> Bool
+existeSecuenciaDeAmigos1 r u u2 ys =  existeSecuenciaDeAmigos2 r u u2 (restarListas ys (amigosDe u))
+
+existeSecuenciaDeAmigos2 :: RedSocial -> Usuario -> Usuario -> [Usuario] -> Bool
+existeSecuenciaDeAmigos2 _ _ _ [] = False 
+existeSecuenciaDeAmigos2 r u u2 (x:xs) | pertenece u2 (x:xs) = True 
+                                       | otherwise = existeSecuenciaDeAmigosAux r (x:xs) u2 || existeSecuenciaDeAmigos1 r x u2 [u]
+
+existeSecuenciaDeAmigosAux :: RedSocial -> [Usuario] -> Usuario -> Bool
+existeSecuenciaDeAmigosAux _ [] _ = False
+existeSecuenciaDeAmigosAux r (x:xs) u2 | pertenece u2 (amigosDe r x) = True
+                                       | otherwise = existeSecuenciaDeAmigosAux r xs u2 
