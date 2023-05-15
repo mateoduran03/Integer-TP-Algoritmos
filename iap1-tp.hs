@@ -43,7 +43,7 @@ pertenece n (x:xs) |n == x = True
                    |otherwise = pertenece n xs
 
 mismosElementos :: (Eq t) => [t] -> [t] -> Bool
-mismosElementos [] [] = Truesuarios con dos nombres d
+mismosElementos [] [] = True
 mismosElementos []  _ = False
 mismosElementos _ []  = False
 mismosElementos (x:xs) ys = pertenece x ys && mismosElementos xs (quitartodos x ys)
