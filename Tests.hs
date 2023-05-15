@@ -8,20 +8,25 @@ run2 = runtestTT testSuiteEj2
 run3 = runtestTT testSuiteEj3
 run4 = runtestTT testSuiteEj4
 run5 = runtestTT testSuiteEj5
+run6 = runtestTT testSuiteEj6
+run7 = runtestTT testSuiteEj7
+run8 = runtestTT testSuiteEj8
+run9 = runtestTT testSuiteEj9
+run10 = runtestTT testSuiteEj10
 
 testSuiteEj1 = test [
-    -- cuando la lista de usaurios es vacia - vacio
-    -- un usuario - solo ese nombre
-    -- usuarios con dos nombres distintos - los 2 nombres
-    -- usuarios con dos nombres iguales - el nombre 1 sola vez
+    "Caso 1: Usuarios vacios" ~: (nombreDeUsuarios ([],[],[])) ~?= []
+    "Caso 2: Un solo usuario" ~: (nombreDeUsuarios ([(1, "Jorge")],[],[])) ~?= ["Jorge"]
+    "Caso 3: Dos usuarios con nombres distintos" ~: (nombreDeUsuarios ([(1, "Jorge"), (2, "Juan")],[],[])) ~?= ["Jorge", "Juan"]
+    "Caso 4: Dos usuarios con nombres iguales" ~: (nombreDeUsuarios ([(1, "Jorge"), (2, "Jorge")],[],[])) ~?= ["Jorge"]
     ]
 
 testSuiteEj2 = test [
-    -- un solo usuario - devuelve lista vacia
-    -- 2 usuarios, una relacion - uno amigo del otro
-    -- 3 usuarios, dos relaciones - devuelve 2 usuarios amigo del primero
-    -- sin relaciones - devuelve lista vacia
-    -- hay relaciones, pero el usuario no pertenece - lista vacia
+    "Caso 1: Un solo usuario" ~: (amigosDe ([(1, "Jorge")],[],[])) ~?= []
+    "Caso 2: dos usuarios relacionados" ~: (amigosDe ([(1, "Jorge"), (2, "Juan")],[((1, "Jorge"), (2, "Juan"))],[]) (1, "Jorge"))   ~?= [(2, "Juan")]
+    "Caso 3: tres usuarios, dos relacionados" ~: (amigosDe ([(1, "Jorge"), (2, "Juan"), (3, "Ariel")],[((1, "Jorge"), (2, "Juan")), ((1, "Jorge"), (3, "Ariel"))],[]) (1, "Jorge")) ~?= [(2, "Juan"), (3, "Ariel")]
+    "Caso 4: sin relaciones" ~: (amigosDe ([(1, "Jorge"), (2, "Juan")],[],[])) ~?= []
+    "Caso 5: el usuario no se relaciona" ~: (amigosDe ([(1, "Jorge"), (2, "Juan"), (3, "Ariel")],[((1, "Jorge"), (2, "Juan"))],[]) (3, "Ariel")) ~?= []
     --  
     ]
 
@@ -47,4 +52,39 @@ testSuiteEj5 = test [
     -- 1 usuario - false
     -- 11 usuarios, un usuario con 10 amigos - false
     -- 12 usarios, un usuario con 11 amigos  - true
+    ]
+    
+testSuiteEj6 = test [
+    -- usuario sin publicaciones - lista vacia
+    -- usuario con una publicacion - esa publicacion
+    -- usuario con dos publicaciones iguales - esa publicacion una sola vez
+    -- varios usuarios con varias publicaciones - publicaciones del usuario elegido
+    -- 
+    ]
+
+testSuiteEj7 = test [
+    -- sin publicaciones - lista vacia
+    -- un solo usuario - lista vacia
+    -- usuario, no le gustan las publicaciones - lista vacia
+    -- usuarios, le  gusata una publicacion - esa publicacion
+    -- 
+    ]
+
+testSuiteEj8 = test [
+    -- sin publicaciones - false
+    -- no les gustan las mismas publicaciones - false
+    -- les gusta las mismas publicaciones - true
+    -- hay 2 que les gustan las mismas publicaciones - true
+    ]
+
+testSuiteEj9 = test [
+    -- no tiene likes - false
+    -- tiene seguidor fiel - true
+    -- un solo usuario - false
+    -- no le gustan todas la publicaciones - false
+
+    ]
+
+testSuiteEj10 = test [
+
     ]
