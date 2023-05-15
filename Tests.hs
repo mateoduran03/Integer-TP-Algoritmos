@@ -22,7 +22,7 @@ testSuiteEj1 = test [
     ]
 
 testSuiteEj2 = test [
-    "Caso 1: Un solo usuario" ~: (amigosDe ([(1, "Jorge")],[],[])) ~?= []
+    "Caso 1: Un solo usuario" ~: (amigosDe ([(1, "Jorge")],[],[]) (1, "Jorge")) ~?= []
     "Caso 2: dos usuarios relacionados" ~: (amigosDe ([(1, "Jorge"), (2, "Juan")],[((1, "Jorge"), (2, "Juan"))],[]) (1, "Jorge"))   ~?= [(2, "Juan")]
     "Caso 3: tres usuarios, dos relacionados" ~: (amigosDe ([(1, "Jorge"), (2, "Juan"), (3, "Ariel")],[((1, "Jorge"), (2, "Juan")), ((1, "Jorge"), (3, "Ariel"))],[]) (1, "Jorge")) ~?= [(2, "Juan"), (3, "Ariel")]
     "Caso 4: sin relaciones" ~: (amigosDe ([(1, "Jorge"), (2, "Juan")],[],[])) ~?= []
