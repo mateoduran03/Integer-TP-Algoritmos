@@ -31,11 +31,11 @@ testSuiteEj2 = test [
     ]
 
 testSuiteEj3 = test [
-    -- un solo usuario - devuelve 0
-    -- 2 usuarios, una relacion - devuelve 1
-    -- 3 usuarios, dos relaciones - devuelve 2
-    -- sin relaciones - devuelve 0
-    -- hay relaciones, pero el usuario no pertenece - devuelve 0
+    "Caso 1: un solo usuario" : (cantidadDeAmigos ([(1, "Jorge")],[],[]) (1, "Jorge")) ~?= 0
+    "Caso 2: dos usuarios relacionados" : (cantidadDeAmigos ([(1, "Jorge"), (2, "Juan")],[((1, "Jorge"), (2, "Juan"))],[]) (1, "Jorge")) ~?= 1
+    "Caso 3: tres usuarios, dos relacionados" ~: (amigosDe ([(1, "Jorge"), (2, "Juan"), (3, "Ariel")],[((1, "Jorge"), (2, "Juan")), ((1, "Jorge"), (3, "Ariel"))],[]) (1, "Jorge")) ~?= 2 
+    "Caso 4: sin relaciones" ~: (amigosDe ([(1, "Jorge"), (2, "Juan")],[],[])) ~?= 0
+    "Caso 5: el usuario no se relaciona" ~: (amigosDe ([(1, "Jorge"), (2, "Juan"), (3, "Ariel")],[((1, "Jorge"), (2, "Juan"))],[]) (3, "Ariel")) ~?= 0
     --
     ]
 
