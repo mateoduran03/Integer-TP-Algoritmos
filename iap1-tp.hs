@@ -233,4 +233,24 @@ tieneUnSeguidorFielaux (x:xs) (u:us) | longitud xs == 0  && pertenece u (likesDe
 
 -- describir qué hace la función: .....
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
-existeSecuenciaDeAmigos = undefined
+existeSecuenciaDeAmigos r u1 u2 = existeSecuenciaDeAmigosSub r u1 u2 (amigosDe r u1) [u1]
+
+existeSecuenciaDeAmigosSub :: RedSocial -> Usuario -> Usuario -> [Usuario]-> [Usuario] -> Bool
+existeSecuenciaDeAmigosSub _ _ _ [] z = False 
+existeSecuenciaDeAmigosSub r u1 u2 (x:xs) z| u1==u2 = False
+                                           | pertenece u2 (x:xs) = True  
+                                           | otherwise = existeSecuenciaDeAmigosSub r u1 u2 (amigosDePero r x (z++[x])) (z++[x]) || existeSecuenciaDeAmigosSub r u1 u2 xs (z++[x]) 
+
+amigosDePero :: RedSocial -> Usuario -> [Usuario] -> [Usuario] 
+amigosDePero r x z = eliminarrepetidos (amigosDePero2 (relaciones r) x z)
+
+amigosDePero2 :: [Relacion] -> Usuario -> [Usuario] -> [Usuario]
+amigosDePero2 [] y z = []
+amigosDePero2 (x:xs) y z | pertenece y (relAusuarios x)  == True = (quitarTodosl [amigosDeaux x y] z) ++ amigosDePero2 xs y z
+                         | otherwise = amigosDePero2 xs y z
+                         
+--existeSecuenciaDeAmigos ([],[((1,"Uno"),(2,"Dos")),((2,"Dos"),(3,"Tres")),((2,"Dos"),(8,"Ocho")),((8,"Ocho"),(4,"Cuatro")),((4,"Cuatro"),(5,"Cinco")),((2,"Dos"),(6,"Seis")),((6,"Seis"),(4,"Cuatro")),((2,"Dos"),(7,"Siete")),((9,"Nueve"),(10,"Diez"))],[]) (1,"Uno") (10,"Diez")
+
+
+--existeSecuenciaDeAmigos ([],[((1,"Uno"),(2,"Dos")),((2,"Dos"),(3,"Tres")),((2,"Dos"),(8,"Ocho")),((8,"Ocho"),(4,"Cuatro")),((4,"Cuatro"),(5,"Cinco")),((2,"Dos"),(6,"Seis")),((6,"Seis"),(4,"Cuatro")),((2,"Dos"),(7,"Siete"))],[]) (3,"Tres") (5,"Cinco")
+
