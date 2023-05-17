@@ -27,7 +27,6 @@ testSuiteEj2 = test [
     "Caso 3: tres usuarios, dos relacionados" ~: (amigosDe ([(1, "Jorge"), (2, "Juan"), (3, "Ariel")],[((1, "Jorge"), (2, "Juan")), ((1, "Jorge"), (3, "Ariel"))],[]) (1, "Jorge")) ~?= [(2, "Juan"), (3, "Ariel")]
     "Caso 4: sin relaciones" ~: (amigosDe ([(1, "Jorge"), (2, "Juan")],[],[])) ~?= []
     "Caso 5: el usuario no se relaciona" ~: (amigosDe ([(1, "Jorge"), (2, "Juan"), (3, "Ariel")],[((1, "Jorge"), (2, "Juan"))],[]) (3, "Ariel")) ~?= []
-    --  
     ]
 
 testSuiteEj3 = test [
@@ -36,53 +35,45 @@ testSuiteEj3 = test [
     "Caso 3: tres usuarios, dos relacionados" ~: (cantidadDeAmigos ([(1, "Jorge"), (2, "Juan"), (3, "Ariel")],[((1, "Jorge"), (2, "Juan")), ((1, "Jorge"), (3, "Ariel"))],[]) (1, "Jorge")) ~?= 2 
     "Caso 4: sin relaciones" ~: (cantidadDeAmigos ([(1, "Jorge"), (2, "Juan")],[],[])) ~?= 0
     "Caso 5: el usuario no se relaciona" ~: (cantidadDeAmigos ([(1, "Jorge"), (2, "Juan"), (3, "Ariel")],[((1, "Jorge"), (2, "Juan"))],[]) (3, "Ariel")) ~?= 0
-    --
     ]
 
 testSuiteEj4 = test [
-    -- 1 solo usuario, devuelve a si mismo
-    -- 2 usuarios con maxima cantidad de amigos, devuelve uno de los dos
-    -- 3 usuarios con la misma cantidad de amigos, devuelve1 de los tre
-    -- 3 usuarios, uno con mas amigos que el otro, devuelve el que tiene mas
-    -- 2 usuarios, uno con mas amigos que el otro, devuelve el que tiene mas
-    -- 
+    "Caso 1: un usuario en la red" ~: (usuarioConMasAmigos ([(1, "Jorge")],[],[])) ~?= (1, "Jorge")
+    "Caso 2: dos usuarios con misma cantidad de amigos" ~: (usuarioConMasAmigos ([(1, "Jorge"), (2, "Juan"), (3, "Ariel"), (4, "Lautaro")],[((1, "Jorge"), (2, "Juan")), ((4, "Lautaro"), (3, "Ariel"))],[])) ~?= (1, "Jorge")
+    "Caso 3: un usuario con mas cantidad de amigos" ~: (usuarioConMasAmigos ([(1, "Jorge"), (2, "Juan"), (3, "Ariel"), (4, "Lautaro"), (5, "Augusto")],[((1, "Jorge"), (2, "Juan")), ((4, "Lautaro"), (3, "Ariel")), ((1, "Jorge"), (5, "Augusto"))],[])) ~?= (1, "Jorge")
     ]
 testSuiteEj5 = test [
-    -- lista vacìa - false
-    -- 1 usuario - false
-    -- 11 usuarios, un usuario con 10 amigos - false
-    -- 12 usarios, un usuario con 11 amigos  - true
+    "Caso 1: Red vacía" ~: (estaRobertoCarlos ([],[],[])) ~?= False
+    "Caso 2: No hay relaciones" ~: (estaRobertoCarlos ([(1, "Jorge")],[],[])) ~?= False
+    "Caso 3: No hay usuario con mas de 10 amigos" ~: (estaRobertoCarlos ([(1, "Jorge"), (2, "Juan"), (3, "Ariel"), (4, "Lautaro"), (5, "Augusto"), (6, "Tomas"), (7, "Valentin"), (8, "Mateo"), (9, "Camila"), (10, "Vicky"), (11, "Angie"), (12, "Santiago")],[((1, "Jorge"), (2, "Juan")), ((1, "Jorge"), (3, "Ariel")), ((1, "Jorge"), (5, "Augusto")), ((1, "Jorge"), (6, "Tomas")), ((1, "Jorge"), (7, "Valentin")), ((1, "Jorge"), (8, "Mateo")), ((1, "Jorge"), (9, "Camila")), ((1, "Jorge"), (10, "Vicky")), ((1, "Jorge"), (11, "Angie")), ((1, "Jorge"), (12, "Santiago"))],[])) ~=?= False
+    "Caso 4: Hay usuario con mas de 10 amigos" ~: (estaRobertoCarlos ([(1, "Jorge"), (2, "Juan"), (3, "Ariel"), (4, "Lautaro"), (5, "Augusto"), (6, "Tomas"), (7, "Valentin"), (8, "Mateo"), (9, "Camila"), (10, "Vicky"), (11, "Angie"), (12, "Santiago")],[((1, "Jorge"), (2, "Juan")), ((1, "Jorge"), (3, "Ariel")), ((1, "Jorge"), (5, "Augusto")), ((1, "Jorge"), (6, "Tomas")), ((1, "Jorge"), (7, "Valentin")), ((1, "Jorge"), (8, "Mateo")), ((1, "Jorge"), (9, "Camila")), ((1, "Jorge"), (10, "Vicky")), ((1, "Jorge"), (11, "Angie")), ((1, "Jorge"), (12, "Santiago")), ((1, "Jorge"), (4, "Lauti"))],[])) ~=?= True
     ]
     
 testSuiteEj6 = test [
-    -- usuario sin publicaciones - lista vacia
-    -- usuario con una publicacion - esa publicacion
-    -- usuario con dos publicaciones iguales - esa publicacion una sola vez
-    -- varios usuarios con varias publicaciones - publicaciones del usuario elegido
+    "Caso 1: Usuario sin publicaciones" ~: (publicacionesDe ([(1, "Jorge")],[],[]) (1, "Jorge")) ~?= []
+    "Caso 2: Una publicacion" ~: (publicacionesDe ([(1, "Jorge")],[],[((1, "Jorge"), "Hola",[])]) (1, "Jorge")) ~?= ["Hola"]
+    "Caso 3: Dos publicaciones iguales" ~: (publicacionesDe ([(1, "Jorge")],[],[((1, "Jorge"), "Hola",[]), ((1, "Jorge"), "Hola",[])]) (1, "Jorge")) ~?= ["Hola"]
+    "Caso 4: Varias publicaciones" ~: (publicacionesDe ([(1, "Jorge"), (2, "Juan")],[],[((1, "Jorge"), "Hola",[]), ((2, "Juan"), "Buen día",[]), ((2, "Juan"), "Nos vemos",[])]) (2, "Juan")) ~?= ["Buen día", "Nos vemos"]
     -- 
     ]
 
 testSuiteEj7 = test [
-    -- sin publicaciones - lista vacia
-    -- un solo usuario - lista vacia
-    -- usuario, no le gustan las publicaciones - lista vacia
-    -- usuarios, le  gusata una publicacion - esa publicacion
-    -- 
+    "Caso 1: No hay publciaciones" ~: (publicacionesQueLeGustanA ([(1, "Jorge"), (2, "Juan")],[],[]) (1, "Jorge")) ~?= []
+    "Caso 2: Al usuario no le gustan las publicaciones" ~: (publicacionesQueLeGustanA ([(1, "Jorge"), (2, "Juan"), (3, "Ariel")],[],[((2, "Juan"), "Buen día",[(3, "Ariel")]), ((2, "Juan"), "Nos vemos",[(3, "Ariel")])]) (1, "Jorge")) ~?= []
+    "Caso 3: Al usuario le gustan las publicaciones" ~: (publicacionesQueLeGustanA ([(1, "Jorge"), (2, "Juan"), (3, "Ariel")],[],[((2, "Juan"), "Buen día",[(3, "Ariel")]), ((2, "Juan"), "Nos vemos",[(3, "Ariel")])]) (3, "Ariel")) ~?= ["Buen dia", "Nos vemos"]
     ]
 
 testSuiteEj8 = test [
-    -- sin publicaciones - false
-    -- no les gustan las mismas publicaciones - false
-    -- les gusta las mismas publicaciones - true
-    -- hay 2 que les gustan las mismas publicaciones - true
+    "Caso 1: No hay publciaciones" ~: (lesGustanLasMismasPublicaciones ([(1, "Jorge"), (2, "Juan")],[],[]) (1, "Jorge") (2, "Juan")) ~?= False
+    "Caso 2: No les gustan las mismas publicaciones" ~: (lesGustanLasMismasPublicaciones ([(1, "Jorge"), (2, "Juan"), (3, "Ariel")],[],[((2, "Juan"), "Buen día",[(3, "Ariel")]), ((2, "Juan"), "Nos vemos",[(1, "Jorge")])]) (1, "Jorge") (3, "Ariel")) ~?= False
+    "Caso 3: Les gustan las mismas publicaciones" ~: (lesGustanLasMismasPublicaciones ([(1, "Jorge"), (2, "Juan"), (3, "Ariel")],[],[((2, "Juan"), "Buen día",[(1, "Jorge"), (3, "Ariel")]), ((2, "Juan"), "Nos vemos",[(1, "Jorge"), (3, "Ariel")])]) (1, "Jorge") (3, "Ariel")) ~?= True
     ]
 
 testSuiteEj9 = test [
-    -- no tiene likes - false
-    -- tiene seguidor fiel - true
-    -- un solo usuario - false
-    -- no le gustan todas la publicaciones - false
-
+    "Caso 1: Un usuario" ~: (tieneUnSeguidorFiel ([(1, "Jorge")],[],[((1, "Jorge"), "Hola",[])]) (1, "Jorge")) ~?= False
+    "Caso 2: Tiene seguidor fiel" ~: (tieneUnSeguidorFiel ([(1, "Jorge"), (2, "Juan"), (3, "Ariel")],[],[((2, "Juan"), "Buen día",[(1, "Jorge"), (3, "Ariel")]), ((2, "Juan"), "Nos vemos",[(1, "Jorge"), (3, "Ariel")])]) (2, "Juan")) ~?= True
+    "Caso 3: Publicacion sin likes" ~: (tieneUnSeguidorFiel ([(1, "Jorge"), (2, "Juan")],[],[((1, "Jorge"), "Hola",[])]) (1, "Jorge")) ~?= False
+    "Caso 4: No tiene seguidor fiel" ~: (tieneUnSeguidorFiel ([(1, "Jorge"), (2, "Juan"), (3, "Ariel")],[],[((2, "Juan"), "Buen día",[(1, "Jorge")]), ((2, "Juan"), "Nos vemos",[(3, "Ariel")])]) (2, "Juan")) ~?= False
     ]
 
 testSuiteEj10 = test [
