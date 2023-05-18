@@ -1,3 +1,5 @@
+module Solucion where
+
 -- Completar con los datos del grupo
 --
 -- Nombre de Grupo: xx
@@ -168,8 +170,7 @@ eliminarrepetidos (x:xs) | pertenece x xs == True = x : quitartodos x xs
 cantidadDeAmigos :: RedSocial -> Usuario -> Integer
 cantidadDeAmigos x y = longitud (amigosDe x y)
 
--- describir qué hace la función: dada una redsocial, devuelve el usuario con mas amigos
--- idea: comparo la cantidad de amigos de cada usuario hasta quedarme con el mayor
+-- describir qué hace la función: Dada una red social, compara recursivamente el primer elemento de la lista de usuarios con el siguiente, hasta que la lista termina
 usuarioConMasAmigos :: RedSocial -> Usuario
 usuarioConMasAmigos r = usuarioConMasAmigosaux r (usuarios r) (primerusuario r)
 
