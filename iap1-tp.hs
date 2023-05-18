@@ -134,10 +134,9 @@ cadenaDeAmigos (x:xs) r| longitud (xs) == 0 = False
                        | otherwise = cadenaDeAmigos xs r      
                        
 -- EJERCICIOS 
--- describir que hace la funcion: la funcion me devuelve una secuencia de los nombres de los usuarios en la red social
--- añadir eliminarrepetidos
+-- describir que hace la funcion: Dada una red social, utiliza su lista de usuarios, para devolver sus nombres en una lista recursivamente
 nombreDeUsuarios :: RedSocial -> [[Char]] 
-nombreDeUsuarios x = proyectarNombres (usuarios x)
+nombreDeUsuarios x = eliminarrepetidos (proyectarNombres (usuarios x))
 
 proyectarNombres :: [Usuario] -> [[Char]] -- dada una secuencia de usuarios me devuelve una secuencia de sus nombres
 proyectarNombres [] = []
@@ -165,7 +164,7 @@ eliminarrepetidos [] = []
 eliminarrepetidos (x:xs) | pertenece x xs == True = x : quitartodos x xs
                          | otherwise = x : eliminarrepetidos xs 
 
--- describir qué hace la función: dado un usuario perteneciente a la red social, devuelve la cantidad de amigos que tiene
+-- describir qué hace la función: dada una red social y un usuario, mide la longitud de la lista de amigos del usuario
 cantidadDeAmigos :: RedSocial -> Usuario -> Integer
 cantidadDeAmigos x y = longitud (amigosDe x y)
 
