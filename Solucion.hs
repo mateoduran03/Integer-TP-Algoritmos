@@ -6,7 +6,7 @@ module Solucion where
 -- Integrante 1: Mateo Duran, email , LU
 -- Integrante 2: Valentin Aguilar, valentinaguila80@gmail.com , 70/23
 -- Integrante 3: Jorge Cordido, jorgecordido1@gmail.com , 639/23
--- Integrante 4: Nombre Apellido, email, LU
+-- Integrante 4: Tomas Hoch, email, LU
 
 type Usuario = (Integer, String) 
 type Relacion = (Usuario, Usuario) 
