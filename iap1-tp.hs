@@ -231,7 +231,8 @@ tieneUnSeguidorFielaux (x:xs) (u:us) | longitud xs == 0  && pertenece u (likesDe
 
 -- describir qué hace la función: .....
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
-existeSecuenciaDeAmigos r u1 u2 = existeSecuenciaDeAmigosSub r u1 u2 (amigosDe r u1) [u1]
+existeSecuenciaDeAmigos r u1 u2 |(u1 == u2 && cantidadDeAmigos r u1 >= 1) = True 
+                                |otherwise = existeSecuenciaDeAmigosSub r u1 u2 (amigosDe r u1) [u1]
 
 existeSecuenciaDeAmigosSub :: RedSocial -> Usuario -> Usuario -> [Usuario]-> [Usuario] -> Bool
 existeSecuenciaDeAmigosSub _ _ _ [] z = False 
