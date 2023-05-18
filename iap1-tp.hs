@@ -132,14 +132,17 @@ cadenaDeAmigos (x:xs) r| longitud (xs) == 0 = False
                        | otherwise = cadenaDeAmigos xs r      
                        
 -- EJERCICIOS 
+
+-- Ejercicio 1
 -- describir que hace la funcion: Dada una red social, utiliza su lista de usuarios, para devolver sus nombres en una lista recursivamente
 nombreDeUsuarios :: RedSocial -> [[Char]] 
 nombreDeUsuarios x = eliminarrepetidos (proyectarNombres (usuarios x))
 
-proyectarNombres :: [Usuario] -> [[Char]] -- dada una secuencia de usuarios me devuelve una secuencia de sus nombres
+proyectarNombres :: [Usuario] -> [[Char]] 
 proyectarNombres [] = []
 proyectarNombres (x:xs) = nombreDeUsuario x : proyectarNombres xs
 
+-- Ejercicio 2
 -- describir qué hace la función: dado un usuario devuelve una lista de usuarios relacionados con el
 amigosDe :: RedSocial -> Usuario -> [Usuario] 
 amigosDe r x = eliminarrepetidos (amigosDe2 (relaciones r) x)
@@ -161,10 +164,12 @@ eliminarrepetidos [] = []
 eliminarrepetidos (x:xs) | pertenece x xs == True = x : quitartodos x xs
                          | otherwise = x : eliminarrepetidos xs 
 
+-- Ejercicio 3
 -- describir qué hace la función: dada una red social y un usuario, mide la longitud de la lista de amigos del usuario
 cantidadDeAmigos :: RedSocial -> Usuario -> Integer
 cantidadDeAmigos x y = longitud (amigosDe x y)
 
+-- Ejercicio 4
 -- describir qué hace la función: Dada una red social, compara recursivamente el primer elemento de la lista de usuarios con el siguiente, se queda con el mayor y lo compara con el siguiente, hasta que la lista termina
 usuarioConMasAmigos :: RedSocial -> Usuario
 usuarioConMasAmigos r = usuarioConMasAmigosaux r (usuarios r) (primerusuario r)
@@ -177,6 +182,7 @@ usuarioConMasAmigosaux r (x:xs) y | longitud xs == 0 = y
                                   | (cantidadDeAmigos r (head xs)) < (cantidadDeAmigos r y) = usuarioConMasAmigosaux r xs y
                                   | otherwise = usuarioConMasAmigosaux r xs (head xs)
 
+-- Ejercicio 5
 -- describir qué hace la función: Dada una red social, toma su lista de usuarios y prueba recursivamente en cada uno de ellos, si existe un usuario con mas de 10 amigos devuelve true
 estaRobertoCarlos :: RedSocial -> Bool 
 estaRobertoCarlos x = estaRobertoCarlosaux x (usuarios x)
@@ -186,6 +192,7 @@ estaRobertoCarlosaux r [] = False
 estaRobertoCarlosaux r (x:xs) | cantidadDeAmigos r x > 10 = True
                               | otherwise = estaRobertoCarlosaux r xs
 
+-- Ejercicio 6
 -- describir qué hace la función: dado un usuario devuelve una lista de sus publicaciones
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
 publicacionesDe r x = publicacionesDeaux (publicaciones r) x 
@@ -196,6 +203,7 @@ publicacionesDeaux (x:xs) y | (longitud xs == 0) && (y == (usuarioDePublicacion 
                             | y == (usuarioDePublicacion x) = [x] ++ publicacionesDeaux xs y
                             | otherwise = publicacionesDeaux xs y
 
+-- Ejercicio 7
 -- describir qué hace la función: Dado una red social y un usuario, toma la lista de publicaciones en la red y crea recursivamente una lista de las publicaciones que le gustan al usuario
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
 publicacionesQueLeGustanA r u = publicacionesQueLeGustanAaux (publicaciones r) u
@@ -204,13 +212,14 @@ publicacionesQueLeGustanAaux :: [Publicacion] -> Usuario -> [Publicacion]
 publicacionesQueLeGustanAaux [] _ = []
 publicacionesQueLeGustanAaux (x:xs) u | pertenece u (likesDePublicacion x) = x : publicacionesQueLeGustanAaux xs u 
                                       | otherwise = publicacionesQueLeGustanAaux xs u   
-                                      
+
+-- Ejercicio 8
 -- describir qué hace la función: Dados dos usuarios, la funcion se fija si a los dos usuarios les gustan las mismas publicaciones.
 lesGustanLasMismasPublicaciones :: RedSocial -> Usuario -> Usuario -> Bool
 lesGustanLasMismasPublicaciones r u u2 | mismosElementos (publicacionesQueLeGustanA r u) (publicacionesQueLeGustanA r u2) = True
                                        | otherwise = False  
     
-
+-- Ejercicio 9
 -- describir qué hace la función: Dado un usuario, la función evalua si el usuario tiene un seguidor fiel, es decir un usario que puso like en todas las publicaciones
 -- ver el caso en el que el usuario es su propio seguidor fiel
 tieneUnSeguidorFiel :: RedSocial -> Usuario -> Bool
@@ -223,7 +232,7 @@ tieneUnSeguidorFielaux (x:xs) (u:us) | longitud xs == 0  && pertenece u (likesDe
                                      | pertenece u (likesDePublicacion x) = tieneUnSeguidorFielaux xs [u] 
                                      | otherwise = tieneUnSeguidorFielaux (x:xs) us    
 
-
+-- Ejercicio 10
 -- describir qué hace la función: .....
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
 existeSecuenciaDeAmigos r u1 u2 |(u1 == u2 && cantidadDeAmigos r u1 >= 1) = True 
