@@ -193,7 +193,7 @@ estaRobertoCarlosaux r (x:xs) | cantidadDeAmigos r x > 10 = True
                               | otherwise = estaRobertoCarlosaux r xs
 
 -- Ejercicio 6
--- describir qué hace la función: dado un usuario devuelve una lista de sus publicaciones
+-- describir qué hace la función: tomando las publicaciones de red social, y va revisandoen las publicaciones de la red social si la publico el usuario la va agregando a la lista final
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
 publicacionesDe r x = publicacionesDeaux (publicaciones r) x 
 
@@ -214,13 +214,13 @@ publicacionesQueLeGustanAaux (x:xs) u | pertenece u (likesDePublicacion x) = x :
                                       | otherwise = publicacionesQueLeGustanAaux xs u   
 
 -- Ejercicio 8
--- describir qué hace la función: Dados dos usuarios, la funcion se fija si a los dos usuarios les gustan las mismas publicaciones.
+-- describir qué hace la función: Dados dos usuarios, la funcion se fija si a los dos usuarios les gustan las mismas publicaciones, comparando las publicaciones que les gustan a cada usuario
 lesGustanLasMismasPublicaciones :: RedSocial -> Usuario -> Usuario -> Bool
 lesGustanLasMismasPublicaciones r u u2 | mismosElementos (publicacionesQueLeGustanA r u) (publicacionesQueLeGustanA r u2) = True
                                        | otherwise = False  
     
 -- Ejercicio 9
--- describir qué hace la función: Dado un usuario, la función evalua si el usuario tiene un seguidor fiel, es decir un usario que puso like en todas las publicaciones
+-- describir qué hace la función: 
 tieneUnSeguidorFiel :: RedSocial -> Usuario -> Bool
 tieneUnSeguidorFiel r u = tieneUnSeguidorFielaux (publicacionesDe r u) (likesDePublicacion (head (publicacionesDe r u)))
 
@@ -232,7 +232,7 @@ tieneUnSeguidorFielaux (x:xs) (u:us) | longitud xs == 0  && pertenece u (likesDe
                                      | otherwise = tieneUnSeguidorFielaux (x:xs) us    
 
 -- Ejercicio 10
--- describir qué hace la función: .....
+-- describir qué hace la función: busca entre los amigos del usuario dado al segundo usuario, sino lo encuentra hace lo mismo a cada amigo del usuario dado y asi por recursion hasta vaciar la lista de usuarios elegibles y dar false o dar true
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
 existeSecuenciaDeAmigos r u1 u2 |(u1 == u2 && cantidadDeAmigos r u1 >= 1) = True 
                                 |otherwise = existeSecuenciaDeAmigosSub r u1 u2 (amigosDe r u1) [u1]
