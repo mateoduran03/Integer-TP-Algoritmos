@@ -193,11 +193,12 @@ estaRobertoCarlosaux r (x:xs) | cantidadDeAmigos r x > 10 = True
                               | otherwise = estaRobertoCarlosaux r xs
 
 -- Ejercicio 6
--- describir qué hace la función: tomando las publicaciones de red social, y va revisandoen las publicaciones de la red social si la publico el usuario la va agregando a la lista final
+-- describir qué hace la función: tomando las publicaciones de red social, y va revisando en las publicaciones de la red social si la publico el usuario la va agregando a la lista final
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
-publicacionesDe r x = publicacionesDeaux (publicaciones r) x 
+publicacionesDe r x = eliminarrepetidos (publicacionesDeaux (publicaciones r) x) 
 
 publicacionesDeaux :: [Publicacion] -> Usuario -> [Publicacion] 
+publicacionesDeaux  []    _ = []
 publicacionesDeaux (x:xs) y | (longitud xs == 0) && (y == (usuarioDePublicacion x)) = [x]
                             | (longitud xs == 0) && (y /= (usuarioDePublicacion x)) = []
                             | y == (usuarioDePublicacion x) = [x] ++ publicacionesDeaux xs y
