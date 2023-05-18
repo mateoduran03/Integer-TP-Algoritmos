@@ -251,10 +251,5 @@ amigosDePero2 (x:xs) y z | pertenece y (relAusuarios x)  == True = (quitarTodosl
 quitarTodosl :: [Usuario] -> [Usuario] -> [Usuario]
 quitarTodosl [] _ = []
 quitarTodosl (x:xs) y | pertenece x y = quitarTodosl xs y 
-                      | otherwise = [x]++quitarTodosl xs y                         
-                         
---existeSecuenciaDeAmigos ([],[((1,"Uno"),(2,"Dos")),((2,"Dos"),(3,"Tres")),((2,"Dos"),(8,"Ocho")),((8,"Ocho"),(4,"Cuatro")),((4,"Cuatro"),(5,"Cinco")),((2,"Dos"),(6,"Seis")),((6,"Seis"),(4,"Cuatro")),((2,"Dos"),(7,"Siete")),((9,"Nueve"),(10,"Diez"))],[]) (1,"Uno") (10,"Diez")
-
-
---existeSecuenciaDeAmigos ([],[((1,"Uno"),(2,"Dos")),((2,"Dos"),(3,"Tres")),((2,"Dos"),(8,"Ocho")),((8,"Ocho"),(4,"Cuatro")),((4,"Cuatro"),(5,"Cinco")),((2,"Dos"),(6,"Seis")),((6,"Seis"),(4,"Cuatro")),((2,"Dos"),(7,"Siete"))],[]) (3,"Tres") (5,"Cinco")
+                      | otherwise = [x]++quitarTodosl xs y                        
 
