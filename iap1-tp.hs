@@ -3,7 +3,7 @@ module Solucion where
 -- Completar con los datos del grupo
 --
 -- Nombre de Grupo: Integer
--- Integrante 1: Nombre Apellido, email, LU
+-- Integrante 1: Mateo Duran, email , LU
 -- Integrante 2: Valentin Aguilar, valentinaguila80@gmail.com , 70/23
 -- Integrante 3: Jorge Cordido, jorgecordido1@gmail.com , 639/23
 -- Integrante 4: Nombre Apellido, email, LU
