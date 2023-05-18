@@ -15,10 +15,10 @@ run9 = runTestTT testSuiteEj9
 run10 = runTestTT testSuiteEj10
 
 testSuiteEj1 = test [
-    "Caso 1: Usuarios vacios" ~: (nombreDeUsuarios ([],[],[])) ~?= [],
-    "Caso 2: Un solo usuario" ~: (nombreDeUsuarios ([(1, "Jorge")],[],[])) ~?= ["Jorge"],
-    "Caso 3: Dos usuarios con nombres distintos" ~: (nombreDeUsuarios ([(1, "Jorge"), (2, "Juan")],[],[])) ~?= ["Jorge", "Juan"],
-    "Caso 4: Dos usuarios con nombres iguales" ~: (nombreDeUsuarios ([(1, "Jorge"), (2, "Jorge")],[],[])) ~?= ["Jorge"]
+    "Caso 1: Usuarios vacios" ~: (nombresDeUsuarios ([],[],[])) ~?= [],
+    "Caso 2: Un solo usuario" ~: (nombresDeUsuarios ([(1, "Jorge")],[],[])) ~?= ["Jorge"],
+    "Caso 3: Dos usuarios con nombres distintos" ~: (nombresDeUsuarios ([(1, "Jorge"), (2, "Juan")],[],[])) ~?= ["Jorge", "Juan"],
+    "Caso 4: Dos usuarios con nombres iguales" ~: (nombresDeUsuarios ([(1, "Jorge"), (2, "Jorge")],[],[])) ~?= ["Jorge"]
     ]
 
 testSuiteEj2 = test [
