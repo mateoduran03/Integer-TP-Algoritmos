@@ -135,12 +135,12 @@ cadenaDeAmigos (x:xs) r| longitud (xs) == 0 = False
 
 -- Ejercicio 1
 -- describir que hace la funcion: Dada una red social, utiliza su lista de usuarios, para devolver sus nombres en una lista recursivamente
-nombreDeUsuarios :: RedSocial -> [[Char]] 
-nombreDeUsuarios x = eliminarrepetidos (proyectarNombres (usuarios x))
+nombresDeUsuarios :: RedSocial -> [[Char]] 
+nombresDeUsuarios x = eliminarrepetidos (proyectarNombres (usuarios x))
 
 proyectarNombres :: [Usuario] -> [[Char]] 
 proyectarNombres [] = []
-proyectarNombres (x:xs) = nombreDeUsuario x : proyectarNombres xs
+proyectarNombres (x:xs) = nombresDeUsuario x : proyectarNombres xs
 
 -- Ejercicio 2
 -- describir qué hace la función: dado un usuario devuelve una lista de usuarios relacionados con el
