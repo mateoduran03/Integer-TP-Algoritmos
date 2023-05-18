@@ -2,15 +2,15 @@ module Solucion where
 
 -- Completar con los datos del grupo
 --
--- Nombre de Grupo: xx
+-- Nombre de Grupo: Integer
 -- Integrante 1: Nombre Apellido, email, LU
--- Integrante 2: Valentin Aguilar, valentinaguila80@gmail.com , LU
+-- Integrante 2: Valentin Aguilar, valentinaguila80@gmail.com , 70/23
 -- Integrante 3: Jorge Cordido, jorgecordido1@gmail.com , 639/23
 -- Integrante 4: Nombre Apellido, email, LU
 
-type Usuario = (Integer, String) -- (id, nombre)
-type Relacion = (Usuario, Usuario) -- usuarios que se relacionan
-type Publicacion = (Usuario, String, [Usuario]) -- (usuario que publica, texto publicacion, likes)
+type Usuario = (Integer, String) 
+type Relacion = (Usuario, Usuario) 
+type Publicacion = (Usuario, String, [Usuario]) 
 type RedSocial = ([Usuario], [Relacion], [Publicacion])
 
 -- Funciones basicas
