@@ -143,7 +143,7 @@ proyectarNombres [] = []
 proyectarNombres (x:xs) = nombresDeUsuario x : proyectarNombres xs
 
 -- Ejercicio 2
--- describir qué hace la función: dado un usuario devuelve una lista de usuarios relacionados con el
+-- describir qué hace la función: Dada una red social y un usuario, toma las relaciones de la red, prueba recursivamente si el usuario perternece a cada relacion, y a las que cumplan las devuelve en una lista
 amigosDe :: RedSocial -> Usuario -> [Usuario] 
 amigosDe r x = eliminarrepetidos (amigosDe2 (relaciones r) x)
 
