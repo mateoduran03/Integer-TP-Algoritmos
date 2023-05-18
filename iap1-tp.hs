@@ -79,7 +79,6 @@ noHayIdsRepetidos (x:xs) | longitud (x:xs) <= 1 = True
                          | pertenece (idDeUsuario x) (tomarIds xs) = False  
                          | otherwise = noHayIdsRepetidos xs 
                                             
---Toma la lista de todos los ids de una lista de usuarios
 tomarIds :: [Usuario] -> [Integer]
 tomarIds [] = []
 tomarIds (x:xs) = idDeUsuario x : tomarIds xs                        
@@ -100,7 +99,6 @@ espalabra :: Usuario -> Bool
 espalabra n | longitud (nombreDeUsuario n) > 0 && ((head (nombreDeUsuario n) /= ' ')) = True
             | otherwise = False
 
---Consultar caso base profesores.
 usuariosValidos :: [Usuario] -> Bool 
 usuariosValidos [] = True 
 usuariosValidos (x:xs) | usuarioValido x && noHayIdsRepetidos (x:xs) = usuariosValidos xs
@@ -128,9 +126,7 @@ relacionadosDirecto u1 u2 r| pertenece (u1,u2) (relaciones r) = True
                            |pertenece (u2,u1) (relaciones r) = True
                            | otherwise = False
                   
-
 cadenaDeAmigos :: [Usuario] -> RedSocial -> Bool
-
 cadenaDeAmigos (x:xs) r| longitud (xs) == 0 = False
                        | relacionadosDirecto x (head xs) r = True
                        | otherwise = cadenaDeAmigos xs r      
@@ -145,7 +141,6 @@ proyectarNombres [] = []
 proyectarNombres (x:xs) = nombreDeUsuario x : proyectarNombres xs
 
 -- describir qué hace la función: dado un usuario devuelve una lista de usuarios relacionados con el
--- idea: dada red, devolver relaciones de red y en cada relacion que contenga al usuario, entraer al usuario2, luego a la lista final le quito repetidos
 amigosDe :: RedSocial -> Usuario -> [Usuario] 
 amigosDe r x = eliminarrepetidos (amigosDe2 (relaciones r) x)
 
@@ -191,17 +186,17 @@ estaRobertoCarlosaux r [] = False
 estaRobertoCarlosaux r (x:xs) | cantidadDeAmigos r x > 10 = True
                               | otherwise = estaRobertoCarlosaux r xs
 
+-- describir qué hace la función: dado un usuario devuelve una lista de sus publicaciones
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
 publicacionesDe r x = publicacionesDeaux (publicaciones r) x 
 
--- describir qué hace la función: dado un usuario devuelve una lista de sus publicaciones
-publicacionesDeaux :: [Publicacion] -> Usuario -> [Publicacion] -- (falta testear)
+publicacionesDeaux :: [Publicacion] -> Usuario -> [Publicacion] 
 publicacionesDeaux (x:xs) y | (longitud xs == 0) && (y == (usuarioDePublicacion x)) = [x]
                             | (longitud xs == 0) && (y /= (usuarioDePublicacion x)) = []
                             | y == (usuarioDePublicacion x) = [x] ++ publicacionesDeaux xs y
                             | otherwise = publicacionesDeaux xs y
 
--- describir qué hace la función: Dado un usuario devuelve la lista de publicaciones que le gustan al usuario dado.
+-- describir qué hace la función: Dado una red social y un usuario, toma la lista de publicaciones en la red y crea recursivamente una lista de las publicaciones que le gustan al usuario
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
 publicacionesQueLeGustanA r u = publicacionesQueLeGustanAaux (publicaciones r) u
 
