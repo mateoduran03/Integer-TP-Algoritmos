@@ -170,7 +170,7 @@ eliminarrepetidos (x:xs) | pertenece x xs == True = x : quitartodos x xs
 cantidadDeAmigos :: RedSocial -> Usuario -> Integer
 cantidadDeAmigos x y = longitud (amigosDe x y)
 
--- describir qué hace la función: Dada una red social, compara recursivamente el primer elemento de la lista de usuarios con el siguiente, hasta que la lista termina
+-- describir qué hace la función: Dada una red social, compara recursivamente el primer elemento de la lista de usuarios con el siguiente, se queda con el mayor y lo compara con el siguiente, hasta que la lista termina
 usuarioConMasAmigos :: RedSocial -> Usuario
 usuarioConMasAmigos r = usuarioConMasAmigosaux r (usuarios r) (primerusuario r)
 
@@ -182,7 +182,7 @@ usuarioConMasAmigosaux r (x:xs) y | longitud xs == 0 = y
                                   | (cantidadDeAmigos r (head xs)) < (cantidadDeAmigos r y) = usuarioConMasAmigosaux r xs y
                                   | otherwise = usuarioConMasAmigosaux r xs (head xs)
 
--- describir qué hace la función: si existe un usuario con mas de 1000000 de amigos devuelve true
+-- describir qué hace la función: Dada una red social, toma su lista de usuarios y prueba recursivamente en cada uno de ellos, si existe un usuario con mas de 10 amigos devuelve true
 estaRobertoCarlos :: RedSocial -> Bool 
 estaRobertoCarlos x = estaRobertoCarlosaux x (usuarios x)
 
@@ -205,13 +205,11 @@ publicacionesDeaux (x:xs) y | (longitud xs == 0) && (y == (usuarioDePublicacion 
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
 publicacionesQueLeGustanA r u = publicacionesQueLeGustanAaux (publicaciones r) u
 
---([(1,"tom"),(2,"mar"),(3,"Harry")] , [] , [((1,"tom"),"hola",[(2,"mar"),(1,"tom")]), ((1,"tom"), "chau", [(2,"mar"),(1,"tom")])])
---([(1,"tom"),(2,"mar"),(3,"Harry")] , [] , [((1,"tom"),"hola",[(2,"mar")]), ((1,"Tom"), "chau", [(2,"mar"), (1,"tom")])])
-
 publicacionesQueLeGustanAaux :: [Publicacion] -> Usuario -> [Publicacion]
 publicacionesQueLeGustanAaux [] _ = []
 publicacionesQueLeGustanAaux (x:xs) u | pertenece u (likesDePublicacion x) = x : publicacionesQueLeGustanAaux xs u 
                                       | otherwise = publicacionesQueLeGustanAaux xs u   
+                                      
 -- describir qué hace la función: Dados dos usuarios, la funcion se fija si a los dos usuarios les gustan las mismas publicaciones.
 lesGustanLasMismasPublicaciones :: RedSocial -> Usuario -> Usuario -> Bool
 lesGustanLasMismasPublicaciones r u u2 | mismosElementos (publicacionesQueLeGustanA r u) (publicacionesQueLeGustanA r u2) = True
