@@ -221,7 +221,6 @@ lesGustanLasMismasPublicaciones r u u2 | mismosElementos (publicacionesQueLeGust
     
 -- Ejercicio 9
 -- describir qué hace la función: Dado un usuario, la función evalua si el usuario tiene un seguidor fiel, es decir un usario que puso like en todas las publicaciones
--- ver el caso en el que el usuario es su propio seguidor fiel
 tieneUnSeguidorFiel :: RedSocial -> Usuario -> Bool
 tieneUnSeguidorFiel r u = tieneUnSeguidorFielaux (publicacionesDe r u) (likesDePublicacion (head (publicacionesDe r u)))
 
