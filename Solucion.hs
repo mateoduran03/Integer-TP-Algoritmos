@@ -220,16 +220,16 @@ lesGustanLasMismasPublicaciones r u u2 | mismosElementos (publicacionesQueLeGust
                                        | otherwise = False  
     
 -- Ejercicio 9
--- describir qué hace la función: 
+-- describir qué hace la función: Como un usuario likeo todas entonces likeo la primera, por lo tanto, con ese dato, usamos los que likearon la primera y nos fijamos que hayan likeado todas las demas.
 tieneUnSeguidorFiel :: RedSocial -> Usuario -> Bool
 tieneUnSeguidorFiel r u = tieneUnSeguidorFielaux (publicacionesDe r u) (likesDePublicacion (head (publicacionesDe r u)))
 
 tieneUnSeguidorFielaux :: [Publicacion] -> [Usuario] -> Bool
 tieneUnSeguidorFielaux [] _ = False
-tieneUnSeguidorFielaux _ [] = False 
-tieneUnSeguidorFielaux (x:xs) (u:us) | longitud xs == 0  && pertenece u (likesDePublicacion x) = True
-                                     | pertenece u (likesDePublicacion x) = tieneUnSeguidorFielaux xs [u] 
-                                     | otherwise = tieneUnSeguidorFielaux (x:xs) us    
+tieneUnSeguidorFielaux _ [] = False  
+tieneUnSeguidorFielaux (x:xs) (u:us)| longitud xs == 0 && pertenece u (likesDePublicacion x) = True 
+                                    | pertenece u (likesDePublicacion (x)) = tieneUnSeguidorFielaux (xs) [u] || tieneUnSeguidorFielaux xs us
+                                    | otherwise =  tieneUnSeguidorFielaux xs us   
 
 -- Ejercicio 10
 -- describir qué hace la función: busca entre los amigos del usuario dado al segundo usuario, sino lo encuentra hace lo mismo a cada amigo del usuario dado y asi por recursion hasta vaciar la lista de usuarios elegibles y dar false o dar true
