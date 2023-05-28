@@ -21,3 +21,45 @@ nat2hexaux n | n == 0 = ['0']
           | n == 14 = ['E']
           | n == 15 = ['F']
          
+nat2hex :: Integer ->  [Char]
+nat2hex n | n < 16 = nat2hexaux n 
+          | otherwise = nat2hex (div n 16) ++ nat2hexaux ( mod n 16) 
+
+
+nat2hexaux :: Integer -> [Char]
+nat2hexaux n | n == 0 = ['0']
+          | n == 1 = ['1']
+          | n == 2 = ['2']
+          | n == 3 = ['3']
+          | n == 4 = ['4']
+          | n == 5 = ['5']
+          | n == 6 = ['6']
+          | n == 7 = ['7']
+          | n == 8 = ['8']
+          | n == 9 = ['9']
+          | n == 10 = ['A']
+          | n == 11 = ['B']
+          | n == 12 = ['C']
+          | n == 13 = ['D']
+          | n == 14 = ['E']
+          | n == 15 = ['F']
+         
+        
+import sys
+
+def quienGana(j1: str, j2: str) -> str : 
+  if (j1 == j2):
+      return "Empate"  
+  if  (j1 == "Piedra") and (j2 == "Tijera"):
+      return "Jugador 1"
+  if (j1 == "Tijera") and (j2 == "Papel"):
+      return "Jugador 1"
+  if (j1 == "Papel") and (j2 == "Piedra"):
+      return "Jugador 1"
+  else:
+      return "Jugador 2"
+
+if __name__ == '__main__':
+  x = input()
+  jug = str.split(x)
+  print(quienGana(jug[0], jug[1]))
